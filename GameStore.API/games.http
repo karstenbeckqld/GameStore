@@ -1,0 +1,29 @@
+GET http://localhost:5229/games
+
+###
+GET http://localhost:5229/games/2
+
+###
+POST http://localhost:5229/games
+Content-Type: application/json
+
+{
+  "name": "Expendables 3",
+  "genre": "Action-Adventure",
+  "price": 59.99,
+  "releaseDate": "2023-05-12"
+}
+
+###
+PUT http://localhost:5229/games/4
+Content-Type: application/json
+
+{
+  "name": "Street Fighter II Turbo",
+  "genre": "Fighting",
+  "price": 9.99,
+  "releaseDate": "1992-07-15"
+}
+
+###
+DELETE http://localhost:5229/games/2
