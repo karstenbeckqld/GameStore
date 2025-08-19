@@ -2,5 +2,5 @@
 # Ignore Visual Studio temporary files, build results. 
 .idea
 .vscode
-GameStore.API/bin
-GameStore.API/obj
+**/bin
+**/obj
