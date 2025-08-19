@@ -1,0 +1,14 @@
+/idea
+/bin
+/obj
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+*.sln.ide
+*.sln.cache
+*.sln.ide-snapshot
+*.sln.ide-snapshot.*
+*.sln.ide-snapshot.*
+*.sln.ide-snapshot.*
+*.sln.ide-snapshot.*
