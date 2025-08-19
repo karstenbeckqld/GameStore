@@ -2,6 +2,7 @@ using System;
 using GameStore.API.Data;
 using GameStore.API.Dtos;
 using GameStore.API.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace GameStore.API.Endpoints;
 
@@ -37,7 +38,29 @@ public static class GameEndpoints
 
         // GET /Games
         // Returns a list of Games
-        app.MapGet("games", () => Games);
+        app.MapGet("games", (GameStoreContext dbContext) =>
+        {
+            var gamesList = new List<GameDto>();
+
+            var games = dbContext.Games.ToListAsync().Result;
+            
+           
+            foreach (var game in games)
+            {
+                GameDto gameDto = new(
+                    game.Id,
+                    game.Name,
+                    game.Genre!.Name,
+                    game.Price,
+                    game.ReleaseDate
+                );
+                
+                gamesList.Add(gameDto);
+            }
+
+
+            return games;
+        });
 
         // GET /Games/{id}
         // Returns a game by ID
@@ -64,8 +87,16 @@ public static class GameEndpoints
 
             dbContext.Games.Add(game);
             dbContext.SaveChanges();
-            
-            return Results.CreatedAtRoute(GetGameEndpointName, new { id = game.Id }, game);
+
+            GameDto gameDto = new(
+                game.Id,
+                game.Name,
+                game.Genre!.Name,
+                game.Price,
+                game.ReleaseDate
+            );
+
+            return Results.CreatedAtRoute(GetGameEndpointName, new { id = game.Id }, gameDto);
         });
 
         // PUT /Games/{id}

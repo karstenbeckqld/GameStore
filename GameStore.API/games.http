@@ -8,10 +8,10 @@ POST http://localhost:5229/games
 Content-Type: application/json
 
 {
-  "name": "Expendables 3",
-  "genre": "Action-Adventure",
-  "price": 59.99,
-  "releaseDate": "2023-05-12"
+  "name": "Street Fighter II",
+  "genreId": 3,
+  "price": 39.99,
+  "releaseDate": "2010-09-30"
 }
 
 ###

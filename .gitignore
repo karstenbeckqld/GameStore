@@ -1,0 +1,6 @@
+# GameStore.API .gitignore
+# Ignore Visual Studio temporary files, build results. 
+.idea
+.vscode
+/bin
+/obj
