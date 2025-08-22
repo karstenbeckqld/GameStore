@@ -1,0 +1,68 @@
+@page "/editgame"
+@inject NavigationManager NavigationManager
+@inject GamesClient GamesClient
+@inject GenresClient GenresClient
+
+<PageTitle>New Game</PageTitle>
+<h3>New Game</h3>
+
+@if (_genres is null)
+{
+    <h3>Loading...</h3>
+}
+else
+{
+    <div class="row">
+        <div class="col-md-4">
+            <EditForm Model="@Game" FormName="editGame" OnSubmit="HandleSubmit">
+                <div class="mb-3">
+                    <label for="name" class="form-label">Name:</label>
+                    <InputText id="name" @bind-Value="Game.Name" class="form-control"/>
+                </div>
+                <div class="mb-3">
+                    <label for="genre" class="form-label">Genre:</label>
+                    <InputSelect id="genre" @bind-Value="Game.GenreId" class="form-select">
+                        <option value="">Select Genre</option>
+                        @foreach (var genre in _genres)
+                        {
+                            <option value="@genre.Id">@genre.Name</option>
+                        }
+                    </InputSelect>
+                </div>
+                <div class="mb-3">
+                    <label for="price" class="form-label">Price:</label>
+                    <InputNumber id="price" @bind-Value="Game.Price" class="form-control"/>
+                </div>
+                <div class="mb-3">
+                    <label for="releaseDate" class="form-label">Release Date:</label>
+                    <InputDate id="releaseDate" @bind-Value="Game.ReleaseDate" class="form-control"/>
+                </div>
+                <button type="submit" class="btn btn-primary">Save</button>
+                <a role="button" class="btn btn-secondary" href="/">Cancel</a>
+            </EditForm>
+        </div>
+    </div>
+}
+
+@code {
+    [SupplyParameterFromForm]
+    private GameDetails Game { get; set; } = new()
+    {
+        Name = string.Empty,
+        ReleaseDate = DateOnly.FromDateTime(DateTime.UtcNow)
+    };
+
+    private Genre[]? _genres;
+
+    protected override void OnInitialized()
+    {
+        _genres = GenresClient.GetGenres();
+    }
+
+    private void HandleSubmit()
+    {
+        GamesClient.AddGame(Game);
+        NavigationManager.NavigateTo("/");
+    }
+
+}

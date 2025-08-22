@@ -1,3 +1,7 @@
+body {
+    font-family: "Aptos Mono", sans-serif;
+}
+
 h1:focus {
     outline: none;
 }

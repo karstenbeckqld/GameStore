@@ -1,9 +1,17 @@
+using GameStore.Frontend.Clients;
 using GameStore.Frontend.Components;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddHttpClient("api", client =>
+{
+    client.BaseAddress = new Uri("http://localhost:5229");
+});
+
 builder.Services.AddRazorComponents();
+builder.Services.AddSingleton<GamesClient>();
+builder.Services.AddSingleton<GenresClient>();
 
 var app = builder.Build();
 
